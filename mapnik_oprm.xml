@@ -1,0 +1,259 @@
+<!DOCTYPE Map [
+<!ENTITY % entities SYSTEM "inc/entities.xml.inc">
+<!ENTITY % settings SYSTEM "settings.xml.inc">
+<!--
+Settings for symbols, the spatial reference of your postgis tables, coastline shapefiles directory, and their prefix names.
+--><!-- use 'symbols' unless you have moved the symbols directory --><!ENTITY symbols "./symbols/">
+<!-- use the '&srs900913;' entity if you have called osm2pgsql without special flags (or with -m); use '&srs4326;' if you have used -l --><!ENTITY osm2pgsql_projection "&srs900913;">
+<!-- used for 'node in way' ST_DWithin spatial operations --><!-- Use 0.1 (meters) when your database is in 900913     --><!-- Use 0.000001 (degrees) when your database is in 4326 --><!ENTITY dwithin_900913 "0.1">
+<!ENTITY dwithin_4326 "0.00001">
+<!ENTITY dwithin_node_way "&dwithin_900913;">
+<!-- use 'world_boundaries', which is the usual naming for the local folder the coastline shapefiles are unzipped into --><!ENTITY world_boundaries "./world_boundaries/">
+<!-- use 'planet_osm' unless you have customized your database table prefix using the osm2pgsql 'prefix' flag --><!ENTITY prefix "planet_osm">
+<!ENTITY datasource-settings SYSTEM "datasource-settings.xml.inc">
+<!ENTITY fontset-settings SYSTEM "fontset-settings.xml.inc">
+<!ENTITY srs900913 "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs +over">
+<!ENTITY srsmercator "+proj=merc +datum=WGS84 +over">
+<!ENTITY srs4326 "+init=epsg:4326">
+<!ENTITY % layers SYSTEM "layers.xml.inc">
+<!ENTITY layer-shapefiles SYSTEM "layer-shapefiles.xml.inc">
+<!ENTITY layer-landcover SYSTEM "layer-landcover.xml.inc">
+<!ENTITY layer-water SYSTEM "layer-water.xml.inc">
+<!ENTITY layer-water_features SYSTEM "layer-water_features.xml.inc">
+<!ENTITY layer-citywall SYSTEM "layer-citywall.xml.inc">
+<!ENTITY layer-buildings SYSTEM "layer-buildings.xml.inc">
+<!ENTITY layer-ferry-routes SYSTEM "layer-ferry-routes.xml.inc">
+<!ENTITY layer-aerialways SYSTEM "layer-aerialways.xml.inc">
+<!ENTITY layer-placenames SYSTEM "layer-placenames.xml.inc">
+<!ENTITY layer-amenity-stations SYSTEM "layer-amenity-stations.xml.inc">
+<!ENTITY layer-amenity-symbols SYSTEM "layer-amenity-symbols.xml.inc">
+<!ENTITY layer-amenity-points SYSTEM "layer-amenity-points.xml.inc">
+<!ENTITY layer-power SYSTEM "layer-power.xml.inc">
+<!ENTITY layer-addressing SYSTEM "layer-addressing.xml.inc">
+<!ENTITY layer-admin SYSTEM "layer-admin.xml.inc">
+<!ENTITY maxscale_zoom0 "<MaxScaleDenominator>250000000000</MaxScaleDenominator>">
+<!ENTITY maxscale_zoom1 "<MaxScaleDenominator>500000000</MaxScaleDenominator>">
+<!ENTITY minscale_zoom1 "<MinScaleDenominator>200000000</MinScaleDenominator>">
+<!ENTITY maxscale_zoom2 "<MaxScaleDenominator>200000000</MaxScaleDenominator>">
+<!ENTITY minscale_zoom2 "<MinScaleDenominator>100000000</MinScaleDenominator>">
+<!ENTITY maxscale_zoom3 "<MaxScaleDenominator>100000000</MaxScaleDenominator>">
+<!ENTITY minscale_zoom3 "<MinScaleDenominator>50000000</MinScaleDenominator>">
+<!ENTITY maxscale_zoom4 "<MaxScaleDenominator>50000000</MaxScaleDenominator>">
+<!ENTITY minscale_zoom4 "<MinScaleDenominator>25000000</MinScaleDenominator>">
+<!ENTITY maxscale_zoom5 "<MaxScaleDenominator>25000000</MaxScaleDenominator>">
+<!ENTITY minscale_zoom5 "<MinScaleDenominator>12500000</MinScaleDenominator>">
+<!ENTITY maxscale_zoom6 "<MaxScaleDenominator>12500000</MaxScaleDenominator>">
+<!ENTITY minscale_zoom6 "<MinScaleDenominator>6500000</MinScaleDenominator>">
+<!ENTITY maxscale_zoom7 "<MaxScaleDenominator>6500000</MaxScaleDenominator>">
+<!ENTITY minscale_zoom7 "<MinScaleDenominator>3000000</MinScaleDenominator>">
+<!ENTITY maxscale_zoom8 "<MaxScaleDenominator>3000000</MaxScaleDenominator>">
+<!ENTITY minscale_zoom8 "<MinScaleDenominator>1500000</MinScaleDenominator>">
+<!ENTITY maxscale_zoom9 "<MaxScaleDenominator>1500000</MaxScaleDenominator>">
+<!ENTITY minscale_zoom9 "<MinScaleDenominator>750000</MinScaleDenominator>">
+<!ENTITY maxscale_zoom10 "<MaxScaleDenominator>750000</MaxScaleDenominator>">
+<!ENTITY minscale_zoom10 "<MinScaleDenominator>400000</MinScaleDenominator>">
+<!ENTITY maxscale_zoom11 "<MaxScaleDenominator>400000</MaxScaleDenominator>">
+<!ENTITY minscale_zoom11 "<MinScaleDenominator>200000</MinScaleDenominator>">
+<!ENTITY maxscale_zoom12 "<MaxScaleDenominator>200000</MaxScaleDenominator>">
+<!ENTITY minscale_zoom12 "<MinScaleDenominator>100000</MinScaleDenominator>">
+<!ENTITY maxscale_zoom13 "<MaxScaleDenominator>100000</MaxScaleDenominator>">
+<!ENTITY minscale_zoom13 "<MinScaleDenominator>50000</MinScaleDenominator>">
+<!ENTITY maxscale_zoom14 "<MaxScaleDenominator>50000</MaxScaleDenominator>">
+<!ENTITY minscale_zoom14 "<MinScaleDenominator>25000</MinScaleDenominator>">
+<!ENTITY maxscale_zoom15 "<MaxScaleDenominator>25000</MaxScaleDenominator>">
+<!ENTITY minscale_zoom15 "<MinScaleDenominator>12500</MinScaleDenominator>">
+<!ENTITY maxscale_zoom16 "<MaxScaleDenominator>12500</MaxScaleDenominator>">
+<!ENTITY minscale_zoom16 "<MinScaleDenominator>5000</MinScaleDenominator>">
+<!ENTITY maxscale_zoom17 "<MaxScaleDenominator>5000</MaxScaleDenominator>">
+<!ENTITY minscale_zoom17 "<MinScaleDenominator>2500</MinScaleDenominator>">
+<!ENTITY maxscale_zoom18 "<MaxScaleDenominator>2500</MaxScaleDenominator>">
+<!ENTITY minscale_zoom18 "">
+]>
+<!-- This stylesheet uses features only available in mapnik builds with
+     libxml2 as the XML parser. Furthermore, there are other features
+     and behaviour that necessitate an upgrade to mapnik 0.7.1 --><Map srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs +over" minimum-version="0.7.1" background-color="transparent">
+  <FontSet name="book-fonts">
+    <Font face-name="DejaVu Sans Book"/>
+  </FontSet>
+  <FontSet name="bold-fonts">
+    <Font face-name="DejaVu Sans Bold"/>
+  </FontSet>
+  <FontSet name="oblique-fonts">
+    <Font face-name="DejaVu Sans Oblique"/>
+  </FontSet>
+  <Style name="local-routes">
+    <Rule>
+      <MinScaleDenominator>6500000</MinScaleDenominator>
+      <LineSymbolizer stroke-linejoin="round" stroke="#00f" stroke-width="1" stroke-linecap="round"/>
+    </Rule>
+    <Rule>
+      <MaxScaleDenominator>6500000</MaxScaleDenominator>
+      <MinScaleDenominator>1500000</MinScaleDenominator>
+      <LineSymbolizer stroke-linejoin="round" stroke="#00f" stroke-width="3" stroke-linecap="round"/>
+    </Rule>
+    <Rule>
+      <MaxScaleDenominator>1500000</MaxScaleDenominator>   
+      <LineSymbolizer stroke-linejoin="round" stroke="#00f" stroke-width="6" stroke-linecap="round"/>
+    </Rule>
+    <Rule>
+      <MinScaleDenominator>6500000</MinScaleDenominator>
+      <Filter>[route]='tram'</Filter>
+      <LineSymbolizer stroke-linejoin="round" stroke="#f00" stroke-width="1" stroke-linecap="round"/>
+    </Rule>
+    <Rule>
+      <MaxScaleDenominator>6500000</MaxScaleDenominator>
+      <MinScaleDenominator>1500000</MinScaleDenominator>
+      <Filter>[route]='tram'</Filter>
+      <LineSymbolizer stroke-linejoin="round" stroke="#f00" stroke-width="3" stroke-linecap="round"/>
+    </Rule>
+    <Rule>
+      <MaxScaleDenominator>1500000</MaxScaleDenominator>
+      <Filter>[route]='tram'</Filter>
+      <LineSymbolizer stroke-linejoin="round" stroke="#f00" stroke-width="6" stroke-linecap="round"/>
+    </Rule>
+    <Rule>
+      <MinScaleDenominator>6500000</MinScaleDenominator>
+      <Filter>[route]='monorail'</Filter>
+      <LineSymbolizer stroke-linejoin="round" stroke="#d0f" stroke-width="1" stroke-linecap="round"/>
+    </Rule>
+    <Rule>
+      <MaxScaleDenominator>6500000</MaxScaleDenominator>
+      <MinScaleDenominator>1500000</MinScaleDenominator>
+      <Filter>[route]='monorail'</Filter>
+      <LineSymbolizer stroke-linejoin="round" stroke="#d0f" stroke-width="3" stroke-linecap="round"/>
+    </Rule>
+    <Rule>
+      <MaxScaleDenominator>1500000</MaxScaleDenominator>
+      <Filter>[route]='monorail'</Filter>
+      <LineSymbolizer stroke-linejoin="round" stroke="#d0f" stroke-width="6" stroke-linecap="round"/>
+    </Rule>
+    <Rule>
+      <MinScaleDenominator>6500000</MinScaleDenominator>
+      <Filter>[route]='funicular'</Filter>
+      <LineSymbolizer stroke-linejoin="round" stroke="#d0f" stroke-width="1" stroke-linecap="round"/>
+    </Rule>
+    <Rule>
+      <MaxScaleDenominator>6500000</MaxScaleDenominator>
+      <MinScaleDenominator>1500000</MinScaleDenominator>
+      <Filter>[route]='funicular'</Filter>
+      <LineSymbolizer stroke-linejoin="round" stroke="#d0f" stroke-width="3" stroke-linecap="round"/>
+    </Rule>
+    <Rule>
+      <MaxScaleDenominator>1500000</MaxScaleDenominator>
+      <Filter>[route]='funicular'</Filter>
+      <LineSymbolizer stroke-linejoin="round" stroke="#d0f" stroke-width="6" stroke-linecap="round"/>
+    </Rule>
+  </Style>
+  <Layer name="local-routes" status="on" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs +over">
+    <StyleName>local-routes</StyleName>
+    <Datasource>
+      <Parameter name="table">
+      (select way, route from planet_osm_line where
+      route='tram' or route='monorail' or route='funicular' or route='subway') as routes
+      </Parameter>
+      <!--
+Settings for your postgres setup.
+
+Note: feel free to leave password, host, port, or use blank
+-->
+      <Parameter name="type">postgis</Parameter>
+      <Parameter name="password"/>
+      <Parameter name="host">localhost</Parameter>
+      <Parameter name="port"/>
+      <Parameter name="user">ptuser</Parameter>
+      <Parameter name="dbname">ptgis</Parameter>
+      <!-- this should be 'false' if you are manually providing the 'extent' -->
+      <Parameter name="estimate_extent">false</Parameter>
+      <!-- manually provided extent in epsg 900913 for whole globe -->
+      <!-- providing this speeds up Mapnik database queries -->
+      <Parameter name="extent">-20037508,-19929239,20037508,19929239</Parameter>
+    </Datasource>
+  </Layer>
+  <Style name="mainline-routes">
+    <Rule>
+      <MinScaleDenominator>12500000</MinScaleDenominator>
+      <LineSymbolizer stroke-linejoin="round" stroke="#000" stroke-width="1" stroke-linecap="round"/>
+    </Rule>
+    <Rule>
+      <MaxScaleDenominator>12500000</MaxScaleDenominator>
+      <MinScaleDenominator>6500000</MinScaleDenominator>
+      <LineSymbolizer stroke-linejoin="round" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+    </Rule>
+    <Rule>
+      <MaxScaleDenominator>6500000</MaxScaleDenominator>
+      <MinScaleDenominator>1500000</MinScaleDenominator>
+      <LineSymbolizer stroke-linejoin="round" stroke="#000" stroke-width="4" stroke-linecap="round"/>
+    </Rule>
+    <Rule>
+      <MaxScaleDenominator>1500000</MaxScaleDenominator>
+      <LineSymbolizer stroke-linejoin="round" stroke="#000" stroke-width="8" stroke-linecap="round"/>
+    </Rule>
+  </Style>
+  <Layer name="mainline-routes" status="on" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs +over">
+    <StyleName>mainline-routes</StyleName>
+    <Datasource>
+      <Parameter name="table">
+      (select way, route from planet_osm_line where
+      route='train') as routes
+      </Parameter>
+      <!--
+Settings for your postgres setup.
+
+Note: feel free to leave password, host, port, or use blank
+-->
+      <Parameter name="type">postgis</Parameter>
+      <Parameter name="password"/>
+      <Parameter name="host">localhost</Parameter>
+      <Parameter name="port"/>
+      <Parameter name="user">ptuser</Parameter>
+      <Parameter name="dbname">ptgis</Parameter>
+      <!-- this should be 'false' if you are manually providing the 'extent' -->
+      <Parameter name="estimate_extent">false</Parameter>
+      <!-- manually provided extent in epsg 900913 for whole globe -->
+      <!-- providing this speeds up Mapnik database queries -->
+      <Parameter name="extent">-20037508,-19929239,20037508,19929239</Parameter>
+    </Datasource>
+  </Layer>
+  <Style name="lightrail-routes">
+    <Rule>
+      <MaxScaleDenominator>12500000</MaxScaleDenominator>
+      <MinScaleDenominator>6500000</MinScaleDenominator>
+      <LineSymbolizer stroke-linejoin="round" stroke="#d0f" stroke-width="1" stroke-linecap="round"/>
+    </Rule>
+    <Rule>
+      <MaxScaleDenominator>6500000</MaxScaleDenominator>
+      <MinScaleDenominator>1500000</MinScaleDenominator>
+      <LineSymbolizer stroke-linejoin="round" stroke="#d0f" stroke-width="3" stroke-linecap="round"/>
+    </Rule>
+    <Rule>
+      <MaxScaleDenominator>1500000</MaxScaleDenominator>
+      <LineSymbolizer stroke-linejoin="round" stroke="#d0f" stroke-width="6" stroke-linecap="round"/>
+    </Rule>
+  </Style>
+  <Layer name="lightrail-routes" status="on" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs +over">
+    <StyleName>lightrail-routes</StyleName>
+    <Datasource>
+      <Parameter name="table">
+      (select way,route,line from planet_osm_line where
+      route='light_rail' or line='light_rail') as ways
+      </Parameter>
+      <!--
+Settings for your postgres setup.
+
+Note: feel free to leave password, host, port, or use blank
+-->
+      <Parameter name="type">postgis</Parameter>
+      <Parameter name="password"/>
+      <Parameter name="host">localhost</Parameter>
+      <Parameter name="port"/>
+      <Parameter name="user">ptuser</Parameter>
+      <Parameter name="dbname">ptgis</Parameter>
+      <!-- this should be 'false' if you are manually providing the 'extent' -->
+      <Parameter name="estimate_extent">false</Parameter>
+      <!-- manually provided extent in epsg 900913 for whole globe -->
+      <!-- providing this speeds up Mapnik database queries -->
+      <Parameter name="extent">-20037508,-19929239,20037508,19929239</Parameter>
+    </Datasource>
+  </Layer>
+</Map>
+

@@ -1,0 +1,9 @@
+--keep=
+route=train =light_rail =subway =tram =monorail =funicular
+
+--keep-tags=all
+rain=yes subway=yes monorail=yes tram=yes monorail=yes funicular=yes
+ref= uic_ref= ref_name= ref:ibnr= ref:IBNR= name= website= wheelchair=
+
+--keep-way-relation-tags=all
+route= type= state=
