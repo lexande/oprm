@@ -99,8 +99,6 @@ class RenderThread:
         im = mapnik.Image(render_size, render_size)
         mapnik.render(self.m, im)
         im.save(tile_uri, 'png256')
-        if os.stat(tile_uri)[6] < 117:
-            os.remove(tile_uri)
 
 
     def loop(self):
@@ -122,6 +120,7 @@ class RenderThread:
             empty= ''
             if bytes < 117:
                 empty = " Empty Tile "
+                os.remove(tile_uri)
             self.printLock.acquire()
             print name, ":", z, x, y, exists, empty
             self.printLock.release()
@@ -216,4 +215,4 @@ if __name__ == "__main__":
     # World
     bbox = (-180.0,-90.0, 180.0,90.0)
 
-    render_tiles(bbox, mapfile, tile_dir, 9, 10, "World")
+    render_tiles(bbox, mapfile, tile_dir, 11, 14, "World")
