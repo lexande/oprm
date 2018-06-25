@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+# forked from https://github.com/openstreetmap/mapnik-stylesheets/blob/master/generate_tiles.py
+# license unknown
 from math import pi,cos,sin,log,exp,atan
 from subprocess import call
 import sys, os
@@ -97,6 +99,8 @@ class RenderThread:
         im = mapnik.Image(render_size, render_size)
         mapnik.render(self.m, im)
         im.save(tile_uri, 'png256')
+        if os.stat(tile_uri)[6] < 117:
+            os.remove(tile_uri)
 
 
     def loop(self):
@@ -116,7 +120,7 @@ class RenderThread:
                 self.render_tile(tile_uri, x, y, z)
             bytes=os.stat(tile_uri)[6]
             empty= ''
-            if bytes == 103:
+            if bytes < 117:
                 empty = " Empty Tile "
             self.printLock.acquire()
             print name, ":", z, x, y, exists, empty
