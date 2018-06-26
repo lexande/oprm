@@ -17,7 +17,7 @@
       function init() {
         map = new OpenLayers.Map("oprmap");
         map.addLayer(new OpenLayers.Layer.XYZ("basemap","https://a.tile.openstreetmap.org/${z}/${x}/${y}.png",{sphericalMercator: true}));
-        map.addLayer(new OpenLayers.Layer.XYZ("Passenger Rail","https://iron.alexander.co.tz/tiles/${z}/${x}/${y}.png",{sphericalMercator: true, maxZoomLevel: 16, numZoomLevels: 17, alpha: true, isBaseLayer: false }));
+        map.addLayer(new OpenLayers.Layer.XYZ("Passenger Rail","https://iron.alexander.co.tz/tiles/${z}/${x}/${y}.png",{sphericalMercator: true, maxZoomLevel: 14, numZoomLevels: 15, alpha: true, isBaseLayer: false }));
 
         map.setCenter(new OpenLayers.LonLat(0,0) // Center of the map
           .transform(
@@ -25,6 +25,7 @@
             new OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection
           ), 3 // Zoom level
         );
+        map.getNumZoomLevels = function() { return 15; }
       }
     </script>
     <script type="text/javascript">

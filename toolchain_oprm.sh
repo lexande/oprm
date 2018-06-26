@@ -81,7 +81,7 @@ if [ "0"$(stat --print %s fa.o5m 2>/dev/null) -lt 5 ]; then
     # convert to .o5m format
   echo $(date)"  Writing filtered data into the database." >>${OPRMROOT}/log/tc.log
   rm dirty_tiles 2>/dev/null
-  osm2pgsql $OSM2PGSQLPARAM -c gis.o5m -e 0-17 >/dev/null 2>&1
+  osm2pgsql $OSM2PGSQLPARAM -c gis.o5m -e 0-14 >/dev/null 2>&1
     # enter filtered planet data into the database
   echo $(date)"  All tiles need to be rerendered." >>${OPRMROOT}/log/tc.log
   echo $(date)"  If the tile directory is not empty, please remove" >>${OPRMROOT}/log/tc.log
@@ -140,7 +140,7 @@ while [ -e "${OPRMROOT}/log/toolchain_oprm_running.txt" ]; do
     if (ls dirty_tiles >/dev/null 2>&1); then
         # there is a dirty-tiles master list
       echo $(date)"  Expanding \"dirty_tiles\" file." >>${OPRMROOT}/log/tc.log
-      ${OPRMROOT}/toolchain/dtexpand 0 17 <dirty_tiles >dirty_tiles_ex 2>/dev/null
+      ${OPRMROOT}/toolchain/dtexpand 0 14 <dirty_tiles >dirty_tiles_ex 2>/dev/null
       mv -f dirty_tiles_ex dirty_tiles 2>/dev/null
       echo $(date)"  Splitting dirty-tiles list" \
         "("$(cat dirty_tiles |wc -l)" tiles)" >>${OPRMROOT}/log/tc.log
@@ -205,7 +205,7 @@ continue
 
   # enter differences into the database
   echo $(date)"  Writing differential data into the database." >>${OPRMROOT}/log/tc.log
-  osm2pgsql $OSM2PGSQLPARAM -a gis.osc.gz -e 4-17 >/dev/null 2>&1
+  osm2pgsql $OSM2PGSQLPARAM -a gis.osc.gz -e 0-14 >/dev/null 2>&1
 
   # replace old files by the new ones
   echo $(date)"  Replacing old files by the new ones." >>${OPRMROOT}/log/tc.log
