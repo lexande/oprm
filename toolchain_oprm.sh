@@ -81,7 +81,7 @@ if [ "0"$(stat --print %s fa.o5m 2>/dev/null) -lt 5 ]; then
     # convert to .o5m format
   echo $(date)"  Writing filtered data into the database." >>${OPRMROOT}/log/tc.log
   rm dirty_tiles 2>/dev/null
-  osm2pgsql $OSM2PGSQLPARAM -c gis.o5m -e 0-14 >/dev/null 2>&1
+  osm2pgsql $OSM2PGSQLPARAM -c gis.o5m -e 0-14 -o dirty_tiles >/dev/null 2>&1
     # enter filtered planet data into the database
   echo $(date)"  All tiles need to be rerendered." >>${OPRMROOT}/log/tc.log
   echo $(date)"  If the tile directory is not empty, please remove" >>${OPRMROOT}/log/tc.log
