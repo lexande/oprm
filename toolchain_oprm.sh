@@ -17,7 +17,7 @@ BORDERS=
 #
 MAXPROCESS=2  # maximum number of concurrent processes for rendering
 MAXMERGE=5  # number of files to be merged in parallel by osmupdate
-OSM2PGSQLPARAM="-s -C 1500 -d ptgis -U ptuser -S osm2pgsql_oprm.style"
+OSM2PGSQLPARAM="-s -C 1500 -d ptgis -U ptuser -S ${OPRMROOT}/toolchain/osm2pgsql_oprm.style"
   # main parameters to be passed to osm2pgsql
 
 # enter working directory and do some initializations
