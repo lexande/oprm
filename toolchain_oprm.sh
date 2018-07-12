@@ -9,7 +9,7 @@
 # Start it with "nohup ./toolchain_oprm.sh &"
 # To terminate it, delete the file "toolchain_oprm_running.txt".
 
-OPRMROOT=/oprm2
+OPRMROOT=/oprm
 
 PLANETURL=https://planet.openstreetmap.org/pbf/planet-latest.osm.pbf
 PLANETMINSIZE=10000000000  # minimum size of OSM data file in .o5m format
