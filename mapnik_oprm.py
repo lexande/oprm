@@ -61,7 +61,7 @@ if __name__ == "__main__":
 
   # do some global initialization
   print "Rendering " + dt_file_name + ": started."
-  mapfile = "mapnik_pt.xml"
+  mapfile = "/oprm2/toolchain/mapnik_oprm.xml"
   tile_dir = "/oprm2/tiles/"
   max_zoom = 8
   tile_count = 0
