@@ -123,7 +123,7 @@ while [ -e "${OPRMROOT}/log/toolchain_oprm_running.txt" ]; do
       DTF=$AT PID=$N nohup ${OPRMROOT}/toolchain/mapnik_oprm.py >/dev/null 2>&1 &
         # render every tile in list
       echo $(date)"  Now rendering:"\
-        $(ls -m d_t/at* 2>/dev/null|tr -d "d_t/a ") \
+        $(ls -m d_t/at* 4>/dev/null|tr -d "d_t/a ") \
         >>${OPRMROOT}/log/tc.log
       sleep 2  # wait a bit
       tail -30 ${OPRMROOT}/log/tc.log >${OPRMROOT}/status1
@@ -205,7 +205,7 @@ continue
 
   # enter differences into the database
   echo $(date)"  Writing differential data into the database." >>${OPRMROOT}/log/tc.log
-  osm2pgsql $OSM2PGSQLPARAM -a gis.osc.gz -e 0-14 >/dev/null 2>&1
+  osm2pgsql $OSM2PGSQLPARAM -a gis.osc.gz -e 0-14 -o dirty_tiles >/dev/null 2>&1
 
   # replace old files by the new ones
   echo $(date)"  Replacing old files by the new ones." >>${OPRMROOT}/log/tc.log
