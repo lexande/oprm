@@ -216,7 +216,6 @@ Note: feel free to leave password, host, port, or use blank
   </Layer>
   <Style name="lightrail-routes">
     <Rule>
-      <MaxScaleDenominator>12500000</MaxScaleDenominator>
       <MinScaleDenominator>6500000</MinScaleDenominator>
       <LineSymbolizer stroke-linejoin="round" stroke="#d0f" stroke-width="1" stroke-linecap="round"/>
     </Rule>
